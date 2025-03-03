@@ -85,10 +85,6 @@ function handleChoice(choiceIndex) {
   updateView();
 }
 
-// HTML structure
-document.body.innerHTML = `
-    <div id="app"></div>
-  `;
 
 // Initial view update
 updateView();
