@@ -39,3 +39,6 @@ function updateView() {
     `;
 }
 
+function randomEvent() {
+    
+}
