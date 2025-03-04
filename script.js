@@ -84,15 +84,4 @@ function handleChoice(choiceIndex) {
   setTimeout(randomEvent, 3000);
 }
 
-//background
-document.body.style.margin = "0";
-document.body.style.overflow = "hidden";
-document.body.style.background =
-  "url('/imgs/Car.png') no-repeat center center fixed";
-document.body.style.backgroundSize = "cover";
-
-// view update
-document.body.innerHTML = `
-  <div id="app"></div>
-`;
 updateView();
