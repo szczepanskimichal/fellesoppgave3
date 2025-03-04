@@ -58,12 +58,7 @@ function updateView() {
     choicesHtml +=`
     <button onclick="handleChoice(${i})">${choice.text}</button>`;
   }
-    // .map(
-    //   (choice, index) => `
-    //   <button onclick="handleChoice(${index})">${choice.text}</button>
-    // `
-    // )
-    // .join("");
+
 
   document.getElementById("app").innerHTML = /*HTML*/ `
       <h1>Random Event Test</h1>  
@@ -93,5 +88,5 @@ function handleChoice(choiceIndex) {
 }
 
 
-// Initial view update
+
 updateView();
