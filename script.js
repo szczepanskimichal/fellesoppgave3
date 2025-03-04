@@ -51,7 +51,7 @@ let currentChoices = [];
 let isEventActive = false;
 
 updateView();
-setTimeout(randomEvent, 1000);
+
 
 function updateView() {
   const choicesHtml = currentChoices
@@ -83,8 +83,11 @@ function handleChoice(choiceIndex) {
   currentChoices = [];
   isEventActive = false;
   updateView();
+
+  setTimeout(randomEvent, 1000);
 }
 
 
 // Initial view update
 updateView();
+randomEvent();
