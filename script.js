@@ -50,17 +50,20 @@ let currentMessage = "You are driving down the road.";
 let currentChoices = [];
 let isEventActive = false;
 
-updateView();
-
 
 function updateView() {
-  const choicesHtml = currentChoices
-    .map(
-      (choice, index) => `
-      <button onclick="handleChoice(${index})">${choice.text}</button>
-    `
-    )
-    .join("");
+  let choicesHtml = '';
+  for(let i = 0; i < currentChoices.length; i++){
+    const choice = currentChoices[i];
+    choicesHtml +=`
+    <button onclick="handleChoice(${i})">${choice.text}</button>`;
+  }
+    // .map(
+    //   (choice, index) => `
+    //   <button onclick="handleChoice(${index})">${choice.text}</button>
+    // `
+    // )
+    // .join("");
 
   document.getElementById("app").innerHTML = /*HTML*/ `
       <h1>Random Event Test</h1>  
@@ -77,17 +80,18 @@ function randomEvent() {
   updateView();
 }
 
+setTimeout(randomEvent, 3000);
+
 function handleChoice(choiceIndex) {
   const choice = currentChoices[choiceIndex];
   currentMessage = choice.response;
   currentChoices = [];
   isEventActive = false;
   updateView();
-
-  setTimeout(randomEvent, 1000);
+  setTimeout(randomEvent, 3000);
+  
 }
 
 
 // Initial view update
 updateView();
-randomEvent();
