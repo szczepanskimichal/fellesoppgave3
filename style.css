@@ -4,7 +4,7 @@ body {
   padding: 20px;
   margin: 0;
   overflow: hidden;
-  background: url("/imgs/Car.png") no-repeat center center fixed;
+  background: url("./imgs/Car.png") no-repeat center center fixed;
   background-size: cover;
   color: white;
 }
