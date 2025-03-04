@@ -75,18 +75,28 @@ let currentMessage = "You are driving down the road.";
 let currentChoices = [];
 let isEventActive = false;
 let coolMeter = 20;
+const appElement = document.getElementById("app");
 
 
 function updateView() {
-  let choicesHtml = '';
-  for(let i = 0; i < currentChoices.length; i++){
-    const choice = currentChoices[i];
-    choicesHtml +=`
-    <button onclick="handleChoice(${i})">${choice.text}</button>`;
+  if(coolMeter <= 0) {
+    appElement.innerHTML = /*HTML*/ `
+      <h1>Game Over</h1>
+      <div id="coolMeter">You're not cool enought to drive anymore!</div>
+      <button onclick="resetGame()">Try again?</button>
+    `;
+    return;
+  }
+
+  let choicesHtml = "";
+  for(let i = 0; i < currentChoices.length; i++) {
+    choicesHtml += /*HTML*/
+     `<button onclick="handleChoice(${i})">${currentChoices[i].text}</button>
+     `;
   }
 
 
-  document.getElementById("app").innerHTML = /*HTML*/ `
+  appElement.innerHTML = /*HTML*/ `
       <h1>Random Event Test</h1>  
       <div id="message">${currentMessage}</div>
       <div id="choices">${choicesHtml}</div>
@@ -113,6 +123,15 @@ function handleChoice(choiceIndex) {
   updateView();
   setTimeout(randomEvent, 3000);
   
+}
+
+function resetGame() {
+  coolMeter = 20;
+  currentMessage = "You are driving down the road.";
+  currentChoices = [];
+  isEventActive = false;
+  updateView();
+  setTimeout(randomEvent, 3000);
 }
 
 
