@@ -122,6 +122,4 @@ function resetGame() {
   setTimeout(randomEvent, 3000);
 }
 
-
-
 updateView();
