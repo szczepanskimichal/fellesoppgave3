@@ -50,15 +50,13 @@ let currentMessage = "You are driving down the road.";
 let currentChoices = [];
 let isEventActive = false;
 
-
 function updateView() {
-  let choicesHtml = '';
-  for(let i = 0; i < currentChoices.length; i++){
+  let choicesHtml = "";
+  for (let i = 0; i < currentChoices.length; i++) {
     const choice = currentChoices[i];
-    choicesHtml +=`
+    choicesHtml += `
     <button onclick="handleChoice(${i})">${choice.text}</button>`;
   }
-
 
   document.getElementById("app").innerHTML = /*HTML*/ `
       <h1>Random Event Test</h1>  
@@ -84,9 +82,17 @@ function handleChoice(choiceIndex) {
   isEventActive = false;
   updateView();
   setTimeout(randomEvent, 3000);
-  
 }
 
+//background
+document.body.style.margin = "0";
+document.body.style.overflow = "hidden";
+document.body.style.background =
+  "url('/imgs/Car.png') no-repeat center center fixed";
+document.body.style.backgroundSize = "cover";
 
-
+// view update
+document.body.innerHTML = `
+  <div id="app"></div>
+`;
 updateView();
