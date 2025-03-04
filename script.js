@@ -42,14 +42,12 @@ const events = [
   {
     description: "The car behind you is mad, you got into a road rage!",
     choices: [
-      { text: "Speed up",
-       response: "You lose them in traffic!",
-       points: 0,
-     },
-      { text: "Slow down",
-       response: "They pass you, yelling out the window.",
-       points: -10,
-     },
+      { text: "Speed up", response: "You lose them in traffic!", points: 0 },
+      {
+        text: "Slow down",
+        response: "They pass you, yelling out the window.",
+        points: -10,
+      },
       {
         text: "Honk back",
         response: "It turns into a honking war, but they eventually leave.",
@@ -65,9 +63,8 @@ let isEventActive = false;
 let coolMeter = 20;
 const appElement = document.getElementById("app");
 
-
 function updateView() {
-  if(coolMeter <= 0) {
+  if (coolMeter <= 0) {
     appElement.innerHTML = /*HTML*/ `
       <h1>Game Over</h1>
       <div id="coolMeter">You're not cool enought to drive anymore!</div>
@@ -77,16 +74,15 @@ function updateView() {
   }
 
   let choicesHtml = "";
-  for(let i = 0; i < currentChoices.length; i++) {
-    choicesHtml += /*HTML*/
-     `<button onclick="handleChoice(${i})">${currentChoices[i].text}</button>
+  for (let i = 0; i < currentChoices.length; i++) {
+    choicesHtml +=
+      /*HTML*/
+      `<button onclick="handleChoice(${i})">${currentChoices[i].text}</button>
      `;
   }
 
-
   appElement.innerHTML = /*HTML*/ `
       <h1>Random Event Test</h1>  
-      <div id="message">${currentMessage}</div>
       <div id="choices">${choicesHtml}</div>
       <div id="coolMeter">Cool Meter: ${coolMeter}</div>
     `;
@@ -110,7 +106,6 @@ function handleChoice(choiceIndex) {
   isEventActive = false;
   updateView();
   setTimeout(randomEvent, 3000);
-  
 }
 
 function resetGame() {
