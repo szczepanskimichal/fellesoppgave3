@@ -63,6 +63,12 @@
           background-color: white;
         }
         
+        .eventImg{
+          width: 400px;
+          height: auto;
+          margin-top: 50px;
+        }
+        
     </style>
     <title>Document</title>
   </head>
@@ -181,7 +187,7 @@ function updateView() {
       <div id="coolMeterContainer">
         Cool Meter: <div class="meter" style="width: ${coolMeterWidth}%; background-color: ${meterColor};"></div>
       </div>
-      ${currentImg ? `<img src="${currentImg}" alt="Event Image">` : ''}
+      ${currentImg ? `<img class="eventImg" src="${currentImg}" alt="Event Image">` : ''}
     `;
 }
 
