@@ -1,66 +1,98 @@
-README - COOL CAR, BRO 🚗
+"Driving Game" HTML/JavaScript Project
 
-Project Description:
+Description
 
-"Cool Car, Bro" is a fun and interactive game where you drive a car along the road, encountering various random events and characters. Your goal is to increase the "coolness" factor of your car, which is affected by the actions you take along the way.
+This is a simple web-based driving game where the player's "coolness" is tested through random events while driving down the road. Each event presents the player with different choices that can either increase, decrease, or have no impact on their coolness level. The objective of the game is to maintain a high coolness meter and avoid getting too "uncool" to drive.
 
-As you drive, you will come across different items and characters. Some will increase the coolness of your car, while others may decrease it. One of the key elements of the game is meeting a friend (kompis) along the road who you must greet correctly in one of three possible ways. The correct greeting changes each time you meet a new kompis, and your coolness level will influence the type of greeting you receive in return.
+Features
 
-In addition, you may face challenges such as avoiding aggressive grandmothers or encountering random events that either help or hinder your journey to fill your coolness meter.
+Random Events: The game generates random events where the player must choose an action.
+Cool Meter: The player has a "coolness" meter that increases or decreases based on their choices.
+Event Choices: Each event has a series of choices that the player can make. Each choice has a corresponding point value that affects the coolness meter.
+Game Over / Win Conditions: The game ends if the coolness meter drops to zero, or if the coolness meter reaches 100. If either of these conditions is met, the player can restart the game.
+Background & Event Images: The game displays background images and event-specific images to enhance the experience.
+Game Mechanics
+Cool Meter: The player's coolness is represented by a meter, which can range from 0% to 100%. The meter is updated based on the player's choices.
 
+If the coolness meter reaches 0%, the game ends.
+If the coolness meter reaches 100%, the player wins.
+The color of the coolness meter changes based on the current value:
+Red (low coolness)
+Blue (neutral coolness)
+Green (high coolness)
+Random Events: The game will randomly select an event that will influence the player's coolness. Each event has multiple choices, and the outcome of each choice impacts the coolness meter.
 
-How to Play:
-Drive the car along the road.
-Make choices when encountering random events or characters.
-Increase your coolness by choosing items that improve your car's coolness factor.
-Meet your kompis and greet him in the correct way. If you're successful, your coolness increases, and you receive a cool response. If you fail, you'll receive a less cool response, and your coolness may decrease.
-Avoid negative events like the angry grandmother, who can lower your coolness if you're not careful.
-Fill your coolness meter to win the game. If you reach a high level of coolness, you may face a boss battle after crossing paths with several squirrels (this part of the game can be added later).
-Features:
-Random events: Items or characters will appear randomly, giving the player different choices that affect their coolness.
-Dynamic greetings: You must figure out the correct way to greet your kompis each time you meet him. If you greet him incorrectly, your coolness may decrease.
-Coolness meter: The main goal of the game is to fill the coolness meter completely.
-Events like the aggressive grandmother or other random surprises that can impact your coolness in fun ways.
-Interactive choices that make each playthrough unique.
-Technologies Used:
-JavaScript (to implement game logic)
-HTML/CSS (for the basic user interface)
-GitHub Collaboration (to manage and work on the code together)
-Structure:
-This game follows the MVC (Model-View-Controller) design pattern:
+Choices and Responses:
 
+The player is given 3 options for each event. Each option results in a different outcome.
+Each response comes with a certain number of points that will increase or decrease the coolness meter.
 
-Model: This part handles the data and game logic, such as the current coolness level, random events, and choices.
-View: The view represents the user interface where players interact with the game, see their coolness meter, and choose actions.
-Controller: The controller processes the user's input, updates the model, and renders the appropriate view.
-Installation:
-Clone the repository to your local machine:
+Setup
 
+To run this game, simply follow these steps:
 
-git clone [https://github.com/yourusername/cool-car-bro.gi](https://szczepanskimichal.github.io/fellesoppgave3/)t
-Open the index.html file in your browser to play the game.
+Clone the Repository: If you are working with a Git repository, clone it using the following command:
 
-How to Contribute:
-Fork this repository.
-Create a new branch:
+bash
+Kopier
+Rediger
+git clone https://github.com/szczepanskimichal/fellesoppgave3.git
+Required Files:
 
-git checkout -b your-branch-name
-Make your changes and commit them:
+The HTML file (index.html).
+Event images (e.g., friend.png, monster.png, AngryFriend.jpg, etc.) should be stored in the ./imgs/ directory (as referenced in the code).
+The images should be in PNG or JPG format.
+Running the Game:
 
-git commit -m "Add new feature or fix bug"
-Push to your branch:
+Open the index.html file in any web browser (Chrome, Firefox, Safari, etc.) to start playing the game.
+Make sure the images are correctly linked to the HTML file for optimal functionality.
+File Structure
+bash
+Kopier
+Rediger
+/index.html # Main game file containing HTML structure and JavaScript logic
+/imgs/ # Folder containing images used in the game
+├── Car.png # Background image
+├── friend.png # Event image (Friend)
+├── monster.png # Event image (Monster)
+└── AngryFriend.jpg # Event image (Angry Friend)
 
-git push origin your-branch-name
-Create a pull request to merge your changes.
-Plan:
-First, we'll focus on implementing the core game logic, including the random events, coolness meter, and the kompis greeting system.
-After the game logic is in place, we'll begin designing the user interface using HTML and CSS.
-Finally, we'll refine the game, add extra features like the boss battle and squirrel challenge, and polish the user interface.
-License:
-This project is licensed under the MIT License - see the LICENSE file for details.
+Code Explanation
+
+HTML
+The HTML structure defines the layout of the game interface, including the coolness meter and buttons for choices.
+An app container dynamically updates with game messages and choices based on JavaScript logic.
+
+CSS
+The game style is simple and minimalist.
+The background image (Car.png) is used to give a driving feel.
+The coolness meter changes its appearance depending on the player's current coolness.
+Button styles and event images are also defined in the CSS for a better visual experience.
+
+JavaScript
+The main logic of the game is handled by JavaScript.
+Events: The game uses an array of events, each with a description, event-specific image, and possible choices.
+Game Flow: The game randomly selects an event after a 3-second delay, updates the message based on the player's choice, and updates the coolness meter.
+
+Game Over and Winning Conditions: The game will either display a "Game Over" message if the coolness meter hits 0 or a "You won!" message when it reaches 100.
+Choice Handling: The player's choice updates the game state and triggers the next event.
+
+How to Play
+You start by driving down the road, and random events will occur.
+For each event, you must choose one of the available options.
+Each choice will either improve, worsen, or maintain your "coolness" meter.
+
+If your coolness meter drops to 0%, the game ends, and you'll have the option to restart.
+
+If your coolness meter reaches 100%, you win and can also restart the game.
+
+Dependencies
+
+No external libraries are used for this game. It relies solely on HTML, CSS, and vanilla JavaScript.
+License
+This project is open-source and available under the MIT License.
 
 Team Members:
-[Michal] - CSS
-[Sander] - JS
-[Waquar] - JS
-We hope you enjoy playing "Cool Car, Bro"! 🚗💥
+[Michal]
+[Sander]
+[Waquar]
