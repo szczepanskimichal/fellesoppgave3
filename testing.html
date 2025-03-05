@@ -139,6 +139,7 @@ let currentChoices = [];
 let currentImg = "";
 let isEventActive = false;
 let coolMeter = 20;
+let lastEventIndex = -1;
 const appElement = document.getElementById("app");
 
 function updateView() {
@@ -185,7 +186,13 @@ function updateView() {
 }
 
 function randomEvent() {
-  const event = events[Math.floor(Math.random() * events.length)];
+  let eventIndex;
+  do {
+    eventIndex = Math.floor(Math.random() * events.length);
+  } while (eventIndex === lastEventIndex);
+
+  lastEventIndex = eventIndex;
+  const event = events[eventIndex];
   currentMessage = event.description;
   currentChoices = event.choices;
   currentImg = event.img || "";
