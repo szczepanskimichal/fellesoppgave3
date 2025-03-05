@@ -68,12 +68,26 @@
           height: auto;
           margin-top: 50px;
         }
+
+        audio {
+          display: none; /* Hide the audio element */
+        }
         
+        .sounds {
+          position: absolute;
+          top: 20px;
+          right: 20px;
+          padding: 10px 20px;
+          font-size: 16px;
+          cursor: pointer;
+        }
     </style>
     <title>Document</title>
   </head>
   <body>
    <div id="app"></div>
+   <audio id="backgroundAudio" src="./imgs/driving.mp3" loop></audio>
+   <button id="playButton" class="sounds">Play Sound</button>
 
     <script>
         const events = [
@@ -125,7 +139,7 @@
     choices: [
       { text: "Speed up",
        response: "You lose them in traffic!",
-       points: 0,
+       points: +25,
      },
       { text: "Slow down",
        response: "They pass you, yelling out the window.",
@@ -134,7 +148,7 @@
       {
         text: "Honk back",
         response: "It turns into a honking war, but they eventually leave.",
-        points: +25,
+        points: 0,
       },
     ],
   },
@@ -230,6 +244,15 @@ function resetGame() {
 }
 
 updateView();
+
+document.getElementById("playButton").addEventListener("click", function() {
+  const audioElement = document.getElementById("backgroundAudio");
+  audioElement.play().then(() => {
+    console.log("Audio is playing");
+  }).catch((error) => {
+    console.error("Error playing audio:", error);
+  });
+});
 
     </script>
   </body>
