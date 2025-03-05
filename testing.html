@@ -63,8 +63,6 @@
           background-color: white;
         }
         
-        
-
     </style>
     <title>Document</title>
   </head>
@@ -75,6 +73,7 @@
         const events = [
   {
     description: "You met a friend along the way!",
+    img: "./imgs/friend.jpg",
     choices: [
       {
         text: "Offer a ride",
@@ -83,8 +82,9 @@
       },
       {
         text: "Wave and drive on",
-        response: "Your friend waves back but looks a bit angry.",
-        points: -20,
+        response: "Your friend just stares at you.",
+        img: "./imgs/AngryFriend.jpg",
+        points: -15,
       },
       {
         text: "Stop to chat",
@@ -95,6 +95,7 @@
   },
   {
     description: "A monster appeared on the road!",
+    img: "./imgs/monster.png",
     choices: [
       {
         text: "Swerve around it",
@@ -109,7 +110,7 @@
       {
         text: "Scream and panic",
         response: "The monster laughs and runs off.",
-        points: -20,
+        points: -15,
       },
     ],
   },
@@ -122,7 +123,7 @@
      },
       { text: "Slow down",
        response: "They pass you, yelling out the window.",
-       points: -20,
+       points: -15,
      },
       {
         text: "Honk back",
@@ -135,13 +136,14 @@
 
 let currentMessage = "You are driving down the road.";
 let currentChoices = [];
+let currentImg = "";
 let isEventActive = false;
 let coolMeter = 20;
 const appElement = document.getElementById("app");
 
 function updateView() {
   if(coolMeter <= 0) {
-    appElement.innerHTML = /*HTML*/`
+    appElement.innerHTML =/*HTML*/ `
       <h1 id="header">Game Over</h1>
       <div id="coolMeterContainer">You're not cool enough to drive anymore!</div>
       <button onclick="resetGame()">Try again?</button>
@@ -150,7 +152,7 @@ function updateView() {
   }
 
   if(coolMeter >= 100) {
-    appElement.innerHTML = /*HTML*/ `
+    appElement.innerHTML =/*HTML*/ `
     <h1 id="header">You won!</h1>
     <div id="coolMeterContainer">I guess you're cool enough</div>
     <button onclick="resetGame()">Wanna test your coolness again?</button>
@@ -169,15 +171,16 @@ function updateView() {
 
   let choicesHtml = "";
   for(let i = 0; i < currentChoices.length; i++) {
-    choicesHtml += /*HTML*/ `<button id="btns" onclick="handleChoice(${i})">${currentChoices[i].text}</button>`;
+    choicesHtml +=/*HTML*/ `<button id="btns" onclick="handleChoice(${i})">${currentChoices[i].text}</button>`;
   }
 
-  appElement.innerHTML = /*HTML*/ ` 
+  appElement.innerHTML =/*HTML*/ `
       <div id="message">${currentMessage}</div>
       <div id="choices">${choicesHtml}</div>
       <div id="coolMeterContainer">
         Cool Meter: <div class="meter" style="width: ${coolMeterWidth}%; background-color: ${meterColor};"></div>
       </div>
+      ${currentImg ? `<img src="${currentImg}" alt="Event Image">` : ''}
     `;
 }
 
@@ -185,6 +188,7 @@ function randomEvent() {
   const event = events[Math.floor(Math.random() * events.length)];
   currentMessage = event.description;
   currentChoices = event.choices;
+  currentImg = event.img || "";
   isEventActive = true;
   updateView();
 }
@@ -196,6 +200,7 @@ function handleChoice(choiceIndex) {
   currentMessage = choice.response;
   coolMeter += choice.points;
   currentChoices = [];
+  currentImg = choice.img || "";
   isEventActive = false;
   updateView();
   setTimeout(randomEvent, 3000);
@@ -205,6 +210,7 @@ function resetGame() {
   coolMeter = 20;
   currentMessage = "You are driving down the road.";
   currentChoices = [];
+  currentImg = "";
   isEventActive = false;
   updateView();
   setTimeout(randomEvent, 3000);
