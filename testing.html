@@ -4,306 +4,220 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
-      body {
-        font-family: Arial, sans-serif;
-        text-align: center;
-        padding: 20px;
-        margin: 0;
-        overflow: hidden;
-        background: url("./imgs/Car.png") no-repeat center center fixed;
-        background-size: cover;
-      }
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+            overflow: hidden;
+            background: url("./imgs/Car.png") no-repeat center center fixed;
+            background-size: cover;
+        }
 
-      #coolMeterContainer {
-        position: absolute;
-        top: 20px;
-        left: 20px;
-        width: 15%;
-        max-width: 500px;
-        border: 1px solid black;
-        padding: 4px;
-        background-color: white;
-        text-align: center;
-      }
+        #coolMeterContainer {
+          position: absolute;
+          top: 20px;
+          left: 20px;
+          width: 15%;
+          max-width: 500px;
+          border: 1px solid black;
+          padding: 4px;
+          background-color: white;
+          text-align: center;
+        }
 
-      .meter {
-        height: 30px;
-        width: 0%;
-        transition: width 0.3s ease, background-color 0.3s ease;
-      }
+        .meter {
+            height: 30px;
+            width: 0%;
+            transition: width 0.3s ease, background-color 0.3s ease;
+        }
 
-      .hidden {
-        display: none;
-      }
+        .hidden {
+            display: none;
+        }
 
-      button {
-        padding: 10px 20px;
-        font-size: 16px;
-        cursor: pointer;
-      }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
 
-      #header {
-        color: white;
-        font-size: 30px;
-      }
+        #header {
+            color: white;
+            font-size: 30px;
+        }
 
-      #message {
-        color: black;
-        font-size: 20px;
-        border: 1px solid black;
-        background-color: white;
-        padding: 10px;
-        margin-left: 33%;
-        margin-right: 33%;
-      }
+        #message {
+            color: black;
+            font-size: 20px;
+            border: 1px solid black;
+            background-color: white;
+            padding: 10px;
+            margin-left: 33%;
+            margin-right: 33%;
+        }
 
-      #btns {
-        padding: 20px;
-        margin-top: 50px;
-        background-color: white;
-      }
-
-      #event-image {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 500px;
-        height: auto;
-        z-index: 10;
-        display: none;
-      }
+        #btns {
+          padding: 20px;
+          margin-top: 50px;
+          background-color: white;
+        }
+        
     </style>
     <title>Document</title>
   </head>
   <body>
-    <div id="app"></div>
-    <img id="event-image" src="" alt="Event Image" />
+   <div id="app"></div>
+
     <script>
-      <<<<<<< HEAD
-            const events = [
-              {
-                description: "You met a friend along the way!",
-                image: "./imgs/friend.jpg",
-                choices: [
-                  {
-                    text: "Offer a ride",
-                    response: "Your friend says, 'Thanks!' and hops in.",
-                    points: +25,
-                  },
-                  {
-                    text: "Wave and drive on",
-                    response: "Your friend waves back but looks a bit angry.",
-                    points: -20,
-                  },
-                  {
-                    text: "Stop to chat",
-                    response: "You talk for a bit, then keep driving.",
-                    points: 0,
-                  },
-                ],
-              },
-              {
-                description: "A monster appeared on the road!",
-                image: "./imgs/monster.png",
+        const events = [
+  {
+    description: "You met a friend along the way!",
+    img: "./imgs/friend.png",
+    choices: [
+      {
+        text: "Offer a ride",
+        response: "Your friend says, 'Thanks!' and hops in.",
+        points: +25,
+      },
+      {
+        text: "Wave and drive on",
+        response: "Your friend just stares at you.",
+        img: "./imgs/AngryFriend.jpg",
+        points: -15,
+      },
+      {
+        text: "Stop to chat",
+        response: "You talk for a bit, then keep driving.",
+        points: 0,
+      },
+    ],
+  },
+  {
+    description: "A monster appeared on the road!",
+    img: "./imgs/monster.png",
+    choices: [
+      {
+        text: "Swerve around it",
+        response: "You barely miss the monster and speed away!",
+        points: 0,
+      },
+      {
+        text: "Fight it",
+        response: "You stop and scare it off with your horn.",
+        points: +25,
+      },
+      {
+        text: "Scream and panic",
+        response: "The monster laughs and runs off.",
+        points: -15,
+      },
+    ],
+  },
+  {
+    description: "The car behind you is mad, you got into a road rage!",
+    choices: [
+      { text: "Speed up",
+       response: "You lose them in traffic!",
+       points: 0,
+     },
+      { text: "Slow down",
+       response: "They pass you, yelling out the window.",
+       points: -15,
+     },
+      {
+        text: "Honk back",
+        response: "It turns into a honking war, but they eventually leave.",
+        points: +25,
+      },
+    ],
+  },
+];
 
+let currentMessage = "You are driving down the road.";
+let currentChoices = [];
+let currentImg = "";
+let isEventActive = false;
+let coolMeter = 20;
+const appElement = document.getElementById("app");
 
-        {
-          description: "You met a friend along the way!",
-          img: "./imgs/friend.png",
-          choices: [
-            {
-              text: "Offer a ride",
-              response: "Your friend says, 'Thanks!' and hops in.",
-              points: +25,
-            },
-            {
-              text: "Wave and drive on",
-              response: "Your friend just stares at you.",
-              img: "./imgs/AngryFriend.jpg",
-              points: -15,
-            },
-            {
-              text: "Stop to chat",
-              response: "You talk for a bit, then keep driving.",
-              points: 0,
-            },
-          ],
-        },
-        {
-          description: "A monster appeared on the road!",
-          img: "./imgs/monster.png",
-          choices: [
-            {
-              text: "Swerve around it",
-              response: "You barely miss the monster and speed away!",
-              points: 0,
-            },
-            {
-              text: "Fight it",
-              response: "You stop and scare it off with your horn.",
-              points: +25,
-            },
-            {
-              text: "Scream and panic",
-              response: "The monster laughs and runs off.",
-              points: -15,
-            },
-          ],
-        },
-        {
-          description: "The car behind you is mad, you got into a road rage!",
-          choices: [
-            { text: "Speed up",
-             response: "You lose them in traffic!",
-             points: 0,
-           },
-            { text: "Slow down",
-             response: "They pass you, yelling out the window.",
-             points: -15,
-           },
-            {
-              text: "Honk back",
-              response: "It turns into a honking war, but they eventually leave.",
-              points: +25,
-            },
-          ],
-        },
-      ];
-      >>>>>>> 55091ca06a59d21d6abaf8fb45d1d514c0ac790f
+function updateView() {
+  if(coolMeter <= 0) {
+    appElement.innerHTML =/*HTML*/ `
+      <h1 id="header">Game Over</h1>
+      <div id="coolMeterContainer">You're not cool enough to drive anymore!</div>
+      <button onclick="resetGame()">Try again?</button>
+    `;
+    return;
+  }
 
-                choices: [
-                  {
-                    text: "Swerve around it",
-                    response: "You barely miss the monster and speed away!",
-                    points: 0,
-                  },
-                  {
-                    text: "Fight it",
-                    response: "You stop and scare it off with your horn.",
-                    points: +25,
-                  },
-                  {
-                    text: "Scream and panic",
-                    response: "The monster laughs and runs off.",
-                    points: -20,
-                  },
-                ],
-              },
-              {
-                description: "The car behind you is mad, you got into a road rage!",
-                image: "./imgs/Car.jpg",
-                choices: [
-                  {
-                    text: "Speed up",
-                    response: "You lose them in traffic!",
-                    points: 0,
-                  },
-                  {
-                    text: "Slow down",
-                    response: "They pass you, yelling out the window.",
-                    points: -20,
-                  },
-                  {
-                    text: "Honk back",
-                    response:
-                      "It turns into a honking war, but they eventually leave.",
-                    points: +25,
-                  },
-                ],
-              },
-            ];
+  if(coolMeter >= 100) {
+    appElement.innerHTML =/*HTML*/ `
+    <h1 id="header">You won!</h1>
+    <div id="coolMeterContainer">I guess you're cool enough</div>
+    <button onclick="resetGame()">Wanna test your coolness again?</button>
+    `; 
+    return;
+  }
 
-            let currentMessage = "You are driving down the road.";
-            let currentChoices = [];
-            let isEventActive = false;
-            let coolMeter = 20;
-            const appElement = document.getElementById("app");
-            const eventImage = document.getElementById("event-image");
+  let coolMeterWidth = Math.min(100, Math.max(0, coolMeter));
+  
+  let meterColor = "blue";
+  if (coolMeter > 50) {
+    meterColor = "green";
+  } else if (coolMeter < 20) {
+    meterColor = "red";
+  }
 
-            function updateView() {
-              if (coolMeter <= 0) {
-                appElement.innerHTML = /*HTML*/ `
-            <h1 id="header">Game Over</h1>
-            <div id="coolMeterContainer">You're not cool enough to drive anymore!</div>
-            <button onclick="resetGame()">Try again?</button>
-          `;
-                return;
-              }
+  let choicesHtml = "";
+  for(let i = 0; i < currentChoices.length; i++) {
+    choicesHtml +=/*HTML*/ `<button id="btns" onclick="handleChoice(${i})">${currentChoices[i].text}</button>`;
+  }
 
-              if (coolMeter >= 100) {
-                appElement.innerHTML = /*HTML*/ `
-          <h1 id="header">You won!</h1>
-          <div id="coolMeterContainer">I guess you're cool enough</div>
-          <button onclick="resetGame()">Wanna test your coolness again?</button>
-          `;
-                return;
-              }
+  appElement.innerHTML =/*HTML*/ `
+      <div id="message">${currentMessage}</div>
+      <div id="choices">${choicesHtml}</div>
+      <div id="coolMeterContainer">
+        Cool Meter: <div class="meter" style="width: ${coolMeterWidth}%; background-color: ${meterColor};"></div>
+      </div>
+      ${currentImg ? `<img src="${currentImg}" alt="Event Image">` : ''}
+    `;
+}
 
-              let coolMeterWidth = Math.min(100, Math.max(0, coolMeter));
+function randomEvent() {
+  const event = events[Math.floor(Math.random() * events.length)];
+  currentMessage = event.description;
+  currentChoices = event.choices;
+  currentImg = event.img || "";
+  isEventActive = true;
+  updateView();
+}
 
-              let meterColor = "blue";
-              if (coolMeter > 50) {
-                meterColor = "green";
-              } else if (coolMeter < 20) {
-                meterColor = "red";
-              }
+setTimeout(randomEvent, 3000);
 
-              let choicesHtml = "";
-              for (let i = 0; i < currentChoices.length; i++) {
-                choicesHtml += /*HTML*/ `<button id="btns" onclick="handleChoice(${i})">${currentChoices[i].text}</button>`;
-              }
+function handleChoice(choiceIndex) {
+  const choice = currentChoices[choiceIndex];
+  currentMessage = choice.response;
+  coolMeter += choice.points;
+  currentChoices = [];
+  currentImg = choice.img || "";
+  isEventActive = false;
+  updateView();
+  setTimeout(randomEvent, 3000);
+}
 
-              appElement.innerHTML = /*HTML*/ `
-            <div id="message">${currentMessage}</div>
-            <div id="choices">${choicesHtml}</div>
-            <div id="coolMeterContainer">
-              Cool Meter: <div class="meter" style="width: ${coolMeterWidth}%; background-color: ${meterColor};"></div>
-            </div>
-          `;
-            }
+function resetGame() {
+  coolMeter = 20;
+  currentMessage = "You are driving down the road.";
+  currentChoices = [];
+  currentImg = "";
+  isEventActive = false;
+  updateView();
+  setTimeout(randomEvent, 3000);
+}
 
-            function prepareEvent() {
-              const currentEvent = events[Math.floor(Math.random() * events.length)];
-              eventImage.src = currentEvent.image;
-              eventImage.style.display = "block"; // Pokaż obrazek na początku wydarzenia
+updateView();
 
-              setTimeout(() => {
-                randomEvent(currentEvent);
-              }, 1000);
-            }
-
-            function randomEvent(currentEvent) {
-              currentMessage = currentEvent.description;
-              currentChoices = currentEvent.choices;
-              isEventActive = true;
-              updateView();
-            }
-
-            setTimeout(prepareEvent, 3000);
-
-            function handleChoice(choiceIndex) {
-              const choice = currentChoices[choiceIndex];
-              currentMessage = choice.response;
-              coolMeter += choice.points;
-              currentChoices = [];
-              isEventActive = false;
-              eventImage.style.display = "none"; // Ukryj obrazek po wyborze
-              updateView();
-              setTimeout(prepareEvent, 3000);
-            }
-
-            function resetGame() {
-              coolMeter = 20;
-              currentMessage = "You are driving down the road.";
-              currentChoices = [];
-              isEventActive = false;
-              eventImage.style.display = "none"; // Ukryj obrazek na początku
-              updateView();
-              setTimeout(prepareEvent, 3000);
-            }
-
-            updateView();
     </script>
   </body>
 </html>
